@@ -1,23 +1,23 @@
 #include <stdio.h>
+extern int __bss_start,__bss_end;
 
-extern long __bss_start;
-extern long __bss_end;
-int i;
+void clear_bss();
+
+int temp;
 
 
-
-void clear_bss(){
-
-	char *begin_bss = (char *) &__bss_start;
-	char *end_bss = (char *) &__bss_end;
-
-	for(; begin_bss < end_bss; begin_bss++) {
-		*begin_bss = 0;
+void kernel_main(){
+	clear_bss();
+	while (1){
 	}
 }
 
-void kernel_main(){
-	while(1){
+void clear_bss(){
+	(&__bss_start)[0] = 0x0c;
+	int i = 0;
+	while ((&__bss_start)+i != &__bss_end){
+		(&__bss_start)[i] = 0;
+		i++;
 	}
 }
 
