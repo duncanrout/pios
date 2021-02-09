@@ -40,7 +40,7 @@ void main() {
 	insert(5);
 
 	print("List: ");
-	printList();
+	printNodes();
 	delete();
 	delete();
 	
