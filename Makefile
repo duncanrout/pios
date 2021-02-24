@@ -15,6 +15,9 @@ SDIR = src
 OBJS = \
 	boot.o \
 	kernel_main.o \
+	gpio.o \
+
+
 
 
 
@@ -45,8 +48,8 @@ clean:
 debug:
 	screen -S qemu -d -m qemu-system-aarch64  -machine raspi3 -kernel kernel8.img -hda rootfs.img -S -s -serial null -serial stdio -monitor none -nographic -k en-us 
 	TERM=xterm gdb -x gdb_init_prot_mode.txt
-	i
-	qemu-system -machine raspi3 -kernel kernel8.img -hda rootfs.img -serial null -serial stdio -monitor none -nographic -k en-us
+run:
+	qemu-system-aarch64 -machine raspi3 -kernel kernel8.img -hda rootfs.img -serial null -serial stdio -monitor none -nographic -k en-us
 
 disassemble:
 	$(OBJDUMP) -D kernel8.elf

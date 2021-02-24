@@ -1,5 +1,9 @@
 #include <stdio.h>
+/*#include "list.h"*/
+#include "gpio.h"
+
 extern char __bss_start,__bss_end,__bss_size;
+
 int global;
 
 void clear_bss() {
@@ -12,8 +16,13 @@ void clear_bss() {
 }
 
 void kernel_main() {
-	clear_bss();
+        /*clear_bss();*/
+	led_init();
 	while(1) {
+		led_on();
+		delay();
+		led_off();
+		delay();
 	}
 }
 
