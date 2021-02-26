@@ -1,6 +1,8 @@
 #include <stdio.h>
 /*#include "list.h"*/
 #include "gpio.h"
+#include "serial.h"
+#include "rprintf.h"
 
 extern char __bss_start,__bss_end,__bss_size;
 
@@ -17,13 +19,18 @@ void clear_bss() {
 
 void kernel_main() {
         /*clear_bss();*/
-	led_init();
+	/*led_init();*/
+
+	esp_printf(putc, "Memory: %x \n", kernel_main);
+
 	while(1) {
+        /*
 		led_on();
 		delay();
 		led_off();
-		delay();
+		delay();*/
 	}
+
 }
 
 
