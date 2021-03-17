@@ -1,49 +1,42 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include <stddef.h>
 #include "list.h"
 
-struct node *head = NULL;
-struct node *current = NULL;
 
-void printNodes(){
-	struct node *ptr head;
-	print("\n[ ");
+/*
+ * listAdd
+ *
+ * Adds newElement to a linked list pointed to by list. When calling this function, pass the address of list head.
+ *
+ */
+void listAdd(struct listElement **head, struct listElement *newElement){
+    struct listElement *iterator = (struct listElement*)head ;
 
-	while(ptr != NULL){
-		printf("(%d) ", ptr->data);
-		ptr = ptr->next;
-	}
+    // Link element b into the list between iterator and iterator->next.
+    newElement->next = iterator->next ;
+    newElement->prev = iterator ;
+
+    iterator->next = newElement ;
+    
+    if(newElement->next != NULL){
+        newElement->next->prev = newElement ;
+    }
+}
+
+
+/*
+ * listDelete
+ *
+ * Deletes an element from a doubly linked list.
+ */
+void listRemove(struct listElement *b)
+{
+	if(b->next != NULL)
+		b->next->prev = b->prev ;
 	
-	printf(" ]");
-}
+	b->prev->next = b->next ;
 
-void insert(int data) {
-	struct node *link = (struct node*) malloc(sizeof(struct node));
-	link->data = data;
-	link->next = head;
-	head = link;
-}
-
-struct node* delete() {
-	struct node *tempLink = head;
-	head = head->next;
-	return tempLink;
-}
-
-void main() {
-	insert(1);
-	insert(2);
-	insert(3);
-	insert(4);
-	insert(5);
-
-	print("List: ");
-	printNodes();
-	delete();
-	delete();
-	
-	printf("\nList after deleting 2 items: ");
-	printList();
+	// NULLify the element's next and prev pointers to indicate
+	// that it is not linked into a list.
+	b->next = NULL ;
+	b->prev = NULL ;
 }

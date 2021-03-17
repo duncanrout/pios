@@ -1,5 +1,3 @@
-
-
 CC := gcc
 LD := ld
 OBJDUMP := objdump
@@ -19,10 +17,7 @@ OBJS = \
 	list.o \
 	serial.o \
 	rprintf.o \
-
-
-
-
+	page.o \
 
 
 OBJ = $(patsubst %,$(ODIR)/%,$(OBJS))
@@ -50,8 +45,9 @@ clean:
 	rm -f kernel8.elf
 
 debug:
-	screen -S qemu -d -m qemu-system-aarch64  -machine raspi3 -kernel kernel8.img -hda rootfs.img -S -s -serial null -serial stdio -monitor none -nographic -k en-us 
+	screen -S qemu -d -m qemu-system-aarch64 -machine raspi3 -kernel kernel8.img -hda rootfs.img -S -s -serial null -serial stdio -monitor none -nographic -k en-us 
 	TERM=xterm gdb -x gdb_init_prot_mode.txt
+
 run:
 	qemu-system-aarch64 -machine raspi3 -kernel kernel8.img -hda rootfs.img -serial null -serial stdio -monitor none -nographic -k en-us
 
@@ -66,4 +62,3 @@ rootfs.img:
 	sudo mkdir /mnt/disk/bin
 	sudo mkdir /mnt/disk/etc
 	sudo umount /mnt/disk
-
