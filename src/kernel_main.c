@@ -13,10 +13,15 @@ int global;
  
 void kernel_main(){
         //clear_bss();
+	struct file fat_test;
+	esp_printf(putc, "temp");
+	sd_init();
+	fatInit();
+	fatOpen(&fat_test, "TEST");
 
 	//Homework 7 - worked with luis, used code from haris (inclass)
 	//list.h and list.c are updated to the professor's code
-	init_pfa_list();
+	/*init_pfa_list();
 	struct ppage* test = free_list->next;
 	test = test->next;
 	esp_printf(putc, "Physical Address: %x\n", test->physical_addr);
@@ -26,7 +31,7 @@ void kernel_main(){
 	esp_printf(putc, "Allocated Address:  %x \n", test->physical_addr);
 	free_physical_pages(test);
 	esp_printf((void *)putc, "Address after Freeing: %x\n", test->physical_addr);
-	
+	*/
 	while (1){
 	//temp
 	}
